@@ -10,8 +10,9 @@ WORKDIR /repo
 
 FROM base AS deps
 COPY vendor ./vendor
-COPY web/package.json web/pnpm-lock.yaml web/pnpm-workspace.yaml ./web/
+COPY web/package.json web/pnpm-lock.yaml ./web/
 WORKDIR /repo/web
+# Do not copy pnpm-workspace.yaml — it breaks single-package install in Docker
 RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
@@ -34,7 +35,7 @@ ENV HOSTNAME=0.0.0.0
 WORKDIR /repo/web
 
 COPY --from=builder /repo/vendor /repo/vendor
-COPY --from=builder /repo/web/package.json /repo/web/pnpm-lock.yaml /repo/web/pnpm-workspace.yaml ./
+COPY --from=builder /repo/web/package.json /repo/web/pnpm-lock.yaml ./
 COPY --from=builder /repo/web/node_modules ./node_modules
 COPY --from=builder /repo/web/.next ./.next
 COPY --from=builder /repo/web/public ./public
