@@ -1,12 +1,10 @@
 .git
 .gitignore
-**/.next
-**/node_modules
+web/.next
+web/node_modules
 web/dist
-**/.turbo
-**/coverage
-**/*.md
-!vendor/@heroui-pro/react/README.md
+web/.turbo
+web/coverage
 screens
 Heroui Pro
 *.png
@@ -18,10 +16,5 @@ web/prisma/dev.db
 web/prisma/dev.db-journal
 web/public/uploads
 web/.env
-web/.env.*
-!**/.env.example
-
-# Keep vendored HeroUI Pro build (needed at image build time)
-!vendor/
-!vendor/**/dist/
-!vendor/**/dist/**
+web/.env.local
+web/.env.*.local
