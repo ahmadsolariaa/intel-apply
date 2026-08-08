@@ -10,7 +10,7 @@ node_modules
 
 # production
 **/build
-**/dist
+web/dist
 
 # misc
 .DS_Store
@@ -47,3 +47,7 @@ Heroui Pro/
 screens/
 capture_*.py
 login.py
+
+# keep vendored HeroUI Pro build
+!vendor/@heroui-pro/react/dist/
+!vendor/@heroui-pro/react/dist/**
