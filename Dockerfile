@@ -20,6 +20,7 @@ COPY web ./web
 WORKDIR /repo/web
 # This file is not a real workspace config and breaks pnpm in Docker
 RUN rm -f pnpm-workspace.yaml
+RUN mkdir -p public/uploads
 # Production uses PostgreSQL
 RUN sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
 ENV NEXT_TELEMETRY_DISABLED=1
