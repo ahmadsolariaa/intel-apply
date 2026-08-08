@@ -12,20 +12,21 @@ FROM base AS deps
 COPY vendor ./vendor
 COPY web/package.json web/pnpm-lock.yaml ./web/
 WORKDIR /repo/web
-# Do not copy pnpm-workspace.yaml — it breaks single-package install in Docker
 RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 COPY --from=deps /repo /repo
 COPY web ./web
 WORKDIR /repo/web
+# This file is not a real workspace config and breaks pnpm in Docker
+RUN rm -f pnpm-workspace.yaml
 # Production uses PostgreSQL
 RUN sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/intel_apply?schema=public"
 ENV AUTH_SECRET="build-time-placeholder"
-RUN pnpm exec prisma generate
-RUN pnpm build
+RUN npx prisma generate
+RUN npx next build
 
 FROM base AS runner
 ENV NODE_ENV=production
