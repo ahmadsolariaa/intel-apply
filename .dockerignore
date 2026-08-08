@@ -1,0 +1,21 @@
+.git
+.gitignore
+**/.next
+**/node_modules
+**/dist
+**/.turbo
+**/coverage
+**/*.md
+screens
+Heroui Pro
+*.png
+*.jpg
+auth_state.json
+capture_*.py
+login.py
+web/prisma/dev.db
+web/prisma/dev.db-journal
+web/public/uploads
+web/.env
+web/.env.*
+!**/.env.example

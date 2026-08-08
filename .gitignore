@@ -1,0 +1,49 @@
+# dependencies
+node_modules
+**/node_modules
+.pnp
+.pnp.*
+
+# next.js
+**/.next/
+**/out/
+
+# production
+**/build
+**/dist
+
+# misc
+.DS_Store
+*.pem
+*.png
+auth_state.json
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*.local
+.env
+web/.env
+
+# database / uploads
+**/prisma/dev.db
+**/prisma/dev.db-journal
+**/uploads
+**/public/uploads
+
+# typescript
+*.tsbuildinfo
+**/next-env.d.ts
+
+# turbo
+.turbo
+
+# local dumps / screenshots (not needed for deploy)
+Heroui Pro/
+screens/
+capture_*.py
+login.py

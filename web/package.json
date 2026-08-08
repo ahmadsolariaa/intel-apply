@@ -1,0 +1,60 @@
+{
+  "name": "intel-apply",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3003",
+    "build": "prisma generate && next build",
+    "start": "next start --port 3003",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
+    "clean": "rm -rf .next node_modules .turbo dist"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@gravity-ui/icons": "2.18.0",
+    "@heroui-pro/react": "file:../vendor/@heroui-pro/react",
+    "@heroui/react": "3.2.1",
+    "@heroui/styles": "3.2.1",
+    "@internationalized/date": "3.12.2",
+    "@internationalized/number": "3.6.6",
+    "@prisma/client": "^5.22.0",
+    "@react-aria/utils": "3.34.1",
+    "@react-stately/utils": "3.12.1",
+    "bcryptjs": "^3.0.3",
+    "date-fns": "^4.4.0",
+    "jose": "^6.2.8",
+    "marked": "18.0.4",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-markdown": "10.1.0",
+    "recharts": "3.8.0",
+    "remark-breaks": "4.0.0",
+    "remark-gfm": "4.0.1",
+    "shiki": "4.0.2",
+    "streamdown": "2.5.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/postcss": "4.2.2",
+    "@types/node": "24.7.1",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.2.6",
+    "postcss": "8.5.9",
+    "prisma": "^5.22.0",
+    "tailwindcss": "4.2.2",
+    "tsx": "^4.23.11",
+    "typescript": "5.9.3"
+  }
+}

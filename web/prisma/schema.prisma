@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  applications      Application[]
+  contracts         Contract[]
+  commissions       Commission[]
+  notifications     Notification[]
+  partnerSelections PartnerSelection[]
+}
+
+model Institution {
+  id        String   @id @default(cuid())
+  name      String
+  region    String
+  country   String
+  logoUrl   String   @default("")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  selections PartnerSelection[]
+}
+
+model PartnerSelection {
+  id            String   @id @default(cuid())
+  userId        String
+  institutionId String
+  createdAt     DateTime @default(now())
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institution   Institution  @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, institutionId])
+}
+
+model Application {
+  id              String   @id @default(cuid())
+  studentName     String
+  email           String
+  institution     String
+  programme       String
+  intake          String   @default("")
+  status          String   @default("Draft Application")
+  progress        Int      @default(0)
+  notes           String   @default("")
+  visaNotes       String   @default("")
+  visaStatus      String   @default("Not started")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents       ApplicationDocument[]
+  tasks           ApplicationTask[]
+}
+
+model ApplicationDocument {
+  id            String   @id @default(cuid())
+  name          String
+  fileName      String
+  mimeType      String   @default("application/octet-stream")
+  size          Int      @default(0)
+  storagePath   String
+  createdAt     DateTime @default(now())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model ApplicationTask {
+  id            String   @id @default(cuid())
+  title         String
+  done          Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model Contract {
+  id              String   @id @default(cuid())
+  institution     String
+  contractNumber  String
+  market          String   @default("")
+  stage           String   @default("New Enquiry")
+  signingStatus   String   @default("Contract Not Issued")
+  status          String   @default("Inactive")
+  businessLicense Boolean  @default(false)
+  startDate       String   @default("")
+  endDate         String   @default("")
+  notes           String   @default("")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Commission {
+  id          String   @id @default(cuid())
+  caseNumber  String
+  subject     String
+  institution String
+  status      String   @default("New")
+  intake      String   @default("")
+  amount      Float    @default(0)
+  currency    String   @default("EUR")
+  notes       String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  body      String   @default("")
+  href      String   @default("")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

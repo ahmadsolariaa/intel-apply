@@ -1,0 +1,26 @@
+import type {NextConfig} from "next";
+
+const nextConfig: NextConfig = {
+  output: "standalone",
+  devIndicators: {
+    position: "bottom-right",
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "heroui-assets.nyc3.cdn.digitaloceanspaces.com",
+        protocol: "https",
+      },
+      {
+        hostname: "img.heroui.chat",
+        protocol: "https",
+      },
+      {
+        hostname: "ui-avatars.com",
+        protocol: "https",
+      },
+    ],
+  },
+};
+
+export default nextConfig;
